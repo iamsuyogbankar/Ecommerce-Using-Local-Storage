@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand my-logo  " routerLink="/" >
+      <span>S</span>
+      <span>h</span>
+      <span>o</span>
+      <span>e</span>
+      <span>G</span>
+      <span>r</span>
+      <span>a</span>
+      <span>b</span>
+      <span>b</span>
+      <span>e</span>
+      <span>r</span>
+      <span>s</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a id="home" class="nav-link header-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header-link" routerLink="/trending-deals">Trending Deals</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link header-link" routerLink="/product-create">Add Product</a>
+        </li>
+
+        <li class="nav-item" *ngIf="loggedInData.length < 1">
+            <a class="nav-link header-link" routerLink="/register">Signup</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedInData.length < 1; else logoutTemplate">
+            <a class="nav-link header-link" routerLink="/signin">Signin</a>
+        </li>
+        <ng-template #logoutTemplate>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle header-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Profile
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">{{ loggedInData.name }}</a>
+                  <div class="dropdown-divider"></div>
+                  <a (click)="logout()" class="dropdown-item" href="#">Logout</a>
+                </div>
+              </li>
+        </ng-template>
+      </ul>
+      <form method="POST" class="form-inline my-2 my-lg-0" (submit)="searchResults()">
+        <div>
+          <input ngxTypeahead class="col-sm-12 form-control" [value]="query" [taList]="products" 
+          (taSelected)="autoComplete($event)" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+        </div>
+      </form>
+</div>
+  </nav>
+<div id="container">
+  <router-outlet></router-outlet>
+</div>
